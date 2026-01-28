@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The "Fair" Spinner</title>
+    <style>
+        body { font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; background: #f0f2f5; margin: 0; }
+        #canvas-container { position: relative; margin-bottom: 20px; }
+        /* The Pointer Arrow */
+        #pointer { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); width: 0; height: 0; 
+                   border-left: 15px solid transparent; border-right: 15px solid transparent; border-top: 30px solid #e74c3c; z-index: 10; }
+        canvas { border-radius: 50%; box-shadow: 0 10px 30px rgba(0,0,0,0.2); background: white; }
+        button { padding: 15px 40px; font-size: 1.2rem; cursor: pointer; background: #2ecc71; color: white; border: none; border-radius: 50px; transition: 0.2s; }
+        button:hover { background: #27ae60; transform: scale(1.05); }
+        button:disabled { background: #95a5a6; }
+    </style>
+</head>
+<body>
+
+    <div id="canvas-container">
+        <div id="pointer"></div>
+        <canvas id="wheel" width="400" height="400"></canvas>
+    </div>
+    <button id="spinBtn">Spin the Wheel!</button>
+
+    <script>
+        const canvas = document.getElementById('wheel');
+        const ctx = canvas.getContext('2d');
+        const spinBtn = document.getElementById('spinBtn');
+        
+        const options = ["0", "1", "2", "0", "1", "2", "0", "1", "2"];
+        const colors = ["#3498db", "#e67e22", "#9b59b6", "#3498db", "#e67e22", "#9b59b6", "#3498db", "#e67e22", "#9b59b6"];
+        const numSlices = options.length;
+        const sliceDeg = 360 / numSlices;
+        let currentRotation = 0;
+
+        function drawWheel() {
+            const center = canvas.width / 2;
+            for (let i = 0; i < numSlices; i++) {
+                ctx.beginPath();
+                ctx.fillStyle = colors[i];
+                ctx.moveTo(center, center);
+                ctx.arc(center, center, center, (i * sliceDeg - 90) * Math.PI/180, ((i+1) * sliceDeg - 90) * Math.PI/180);
+                ctx.fill();
+                
+                // Draw Text
+                ctx.save();
+                ctx.translate(center, center);
+                ctx.rotate((i * sliceDeg + sliceDeg/2 - 90) * Math.PI/180);
+                ctx.fillStyle = "white";
+                ctx.font = "bold 24px Arial";
+                ctx.fillText(options[i], center / 1.5, 10);
+                ctx.restore();
+            }
+        }
+
+        function spinWheel() {
+            spinBtn.disabled = true;
+            
+            // --- THE RIGGING LOGIC ---
+            // 1. Find all indices where the value is "1"
+            const winningIndices = options.map((val, idx) => val === "1" ? idx : -1).filter(idx => idx !== -1);
+            // 2. Pick one of those "1" slices randomly
+            const targetIndex = winningIndices[Math.floor(Math.random() * winningIndices.length)];
+            
+            // 3. Calculate degrees. 
+            // Note: Canvas draws clockwise, so we subtract from 360 to find the landing spot.
+            const stopAt = 360 - (targetIndex * sliceDeg) - (sliceDeg / 2);
+            const extraSpins = (5 + Math.floor(Math.random() * 5)) * 360; // 5-10 full loops
+            const finalRotation = extraSpins + stopAt;
+
+            // Animate using CSS transitions for smoothness
+            canvas.style.transition = "transform 4s cubic-bezier(0.15, 0, 0.15, 1)";
+            canvas.style.transform = `rotate(${finalRotation}deg)`;
+
+            setTimeout(() => {
+                spinBtn.disabled = false;
+                // Reset transition and maintain rotation visually
+                canvas.style.transition = "none";
+                currentRotation = finalRotation % 360;
+                canvas.style.transform = `rotate(${currentRotation}deg)`;
+                alert("The winner is: 1! (What a surprise!)");
+            }, 4000);
+        }
+
+        spinBtn.addEventListener('click', spinWheel);
+        drawWheel();
+    </script>
+</body>
+</html>
