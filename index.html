@@ -13,7 +13,7 @@
             height: 100vh; margin: 0; overflow: hidden;
         }
 
-        .title-paragraph {color: #f1c40f; text-shadow: 0 0 10px #f39c12, 0 0 20px #e67e22; font-size: 3rem; margin-bottom: 5px; text-transform: uppercase;
+        .title-paragraph {color: #f1c40f; text-shadow: 0 0 10px #f39c12, 0 0 20px #e67e22; font-size: 3rem; margin-bottom: 15px; text-transform: uppercase;
         }
 
         .game-area {
@@ -71,7 +71,7 @@
 <body>
 
     <p class="title-paragraph">
-        parabéns Leonor! agora....<br>
+        parabéns Leonor! agora...<br>
         qual prenda receberás?
     </p>
 
@@ -94,7 +94,7 @@
         const spinBtn = document.getElementById('spinBtn');
         const mascots = document.querySelectorAll('.mascot');
         
-        const options = ["0", "1", "2", "0", "1", "2", "0", "1", "2", "0", "1", "2"];
+        const options = ["0", "1", "2", "0", "1", "2", "0", "1", "2", "0", "1", "2", "0", "1", "2", "0", "1", "2"];
         const numSlices = options.length;
         const sliceDeg = 360 / numSlices;
 
@@ -104,7 +104,7 @@
             for (let i = 0; i < numSlices; i++) {
                 ctx.beginPath();
                 if (options[i] === "1") {
-                    ctx.fillStyle = "#27ae60"; 
+                    ctx.fillStyle = "#e74c3c"; 
                 } else {
                     ctx.fillStyle = (i % 2 === 0) ? "#111" : "#eee";
                 }
