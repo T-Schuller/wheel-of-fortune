@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A MONTRA FINAL</title>
+    <style>
+        body { 
+            background: radial-gradient(circle, #1a1a1a, #000); 
+            color: #fff; 
+            font-family: 'Arial Black', sans-serif; 
+            display: flex; flex-direction: column; align-items: center; justify-content: center; 
+            height: 100vh; margin: 0; overflow: hidden;
+        }
+
+        h1 { color: #f1c40f; text-shadow: 0 0 10px #f39c12, 0 0 20px #e67e22; font-size: 3rem; margin-bottom: 5px; text-transform: uppercase; }
+
+        h2 { color: #f1c40f; text-shadow: 0 0 10px #f39c12, 0 0 20px #e67e22; font-size: 2.5rem; margin-bottom: 0px; text-transform: uppercase; }
+
+
+        #container { position: relative; padding: 20px; border: 10px solid #d35400; border-radius: 50%; background: #222; box-shadow: 0 0 50px rgba(241, 196, 15, 0.4); }
+
+        /* Flashing Bulbs Effect */
+        #container::before {
+            content: ""; position: absolute; top: -15px; left: -15px; right: -15px; bottom: -15px;
+            border: 5px dotted #f1c40f; border-radius: 50%; animation: flash 0.5s infinite;
+        }
+
+        @keyframes flash { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+        #pointer { 
+            position: absolute; top: -20px; left: 50%; transform: translateX(-50%); 
+            width: 0; height: 0; border-left: 20px solid transparent; border-right: 20px solid transparent; 
+            border-top: 40px solid #e74c3c; z-index: 100; filter: drop-shadow(0 5px 5px rgba(0,0,0,0.5));
+        }
+
+        canvas { border-radius: 50%; cursor: pointer; }
+
+        button { 
+            margin-top: 30px; padding: 15px 50px; font-size: 1.5rem; font-weight: bold;
+            background: linear-gradient(#f1c40f, #e67e22); border: none; border-radius: 5px;
+            color: #000; cursor: pointer; box-shadow: 0 5px #a04000; transition: 0.1s;
+        }
+
+        button:active { transform: translateY(4px); box-shadow: 0 1px #a04000; }
+        button:disabled { filter: grayscale(1); cursor: not-allowed; }
+    </style>
+</head>
+<body>
+
+    <h2>parabéns Leonor! agora....</h2>
+    <h1>qual prenda receberás?</h1>
+    <div id="container">
+        <div id="pointer"></div>
+        <canvas id="wheel" width="500" height="500"></canvas>
+    </div>
+
+    <button id="spinBtn">Desejamos-te sorte!</button>
+
+    <script>
+        const canvas = document.getElementById('wheel');
+        const ctx = canvas.getContext('2d');
+        const spinBtn = document.getElementById('spinBtn');
+        
+        // Extended options to make the wheel look busier
+        const options = ["0", "1", "2", "0", "1", "2", "0", "1", "2", "0", "1", "2", "0", "1", "2", "0", "1", "2"];
+        const numSlices = options.length;
+        const sliceDeg = 360 / numSlices;
+        let currentRotation = 0;
+
+        function drawWheel() {
+            const center = canvas.width / 2;
+            const radius = canvas.width / 2;
+
+            for (let i = 0; i < numSlices; i++) {
+                // Alternate colors for that classic look
+                ctx.beginPath();
+                ctx.fillStyle = (i % 2 === 0) ? "#222" : "#fff";
+                if (options[i] === "1") ctx.fillStyle = "#27ae60"; // Highlight the rigged target green
+                
+                ctx.moveTo(center, center);
+                ctx.arc(center, center, radius, (i * sliceDeg - 90) * Math.PI/180, ((i+1) * sliceDeg - 90) * Math.PI/180);
+                ctx.fill();
+                ctx.strokeStyle = "#f1c40f";
+                ctx.lineWidth = 2;
+                ctx.stroke();
+                
+                // Draw Numbers
+                ctx.save();
+                ctx.translate(center, center);
+                ctx.rotate((i * sliceDeg + sliceDeg/2 - 90) * Math.PI/180);
+                ctx.fillStyle = (ctx.fillStyle === "#ffffff" || options[i] === "1") ? "#000" : "#fff";
+                ctx.font = "bold 32px Arial";
+                ctx.textAlign = "center";
+                ctx.fillText(options[i], radius * 0.75, 12);
+                ctx.restore();
+
+                // Draw Outer Pegs
+                ctx.beginPath();
+                ctx.fillStyle = "#f1c40f";
+                let pegAngle = (i * sliceDeg - 90) * Math.PI/180;
+                ctx.arc(center + Math.cos(pegAngle) * (radius - 10), center + Math.sin(pegAngle) * (radius - 10), 5, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function spinWheel() {
+            spinBtn.disabled = true;
+            
+            // RIGGING: Find a "1" slice
+            const winningIndices = options.map((val, idx) => val === "1" ? idx : -1).filter(idx => idx !== -1);
+            const targetIndex = winningIndices[Math.floor(Math.random() * winningIndices.length)];
+            
+            // Logic: 360 - (slice center) - random jitter so it doesn't look robotic
+            const jitter = (Math.random() * (sliceDeg * 0.8)) - (sliceDeg * 0.4);
+            const stopAt = 360 - (targetIndex * sliceDeg) - (sliceDeg / 2) + jitter;
+            const extraSpins = 3600; // Exactly 10 extra spins
+            const finalRotation = extraSpins + stopAt;
+
+            canvas.style.transition = "transform 6s cubic-bezier(0.1, 0, 0.1, 1)";
+            canvas.style.transform = `rotate(${finalRotation}deg)`;
+
+            setTimeout(() => {
+                spinBtn.disabled = false;
+                alert("QUASE GANHAVAS O PRÉMIO MÁXIMO! NÃO TE PREOCUPES QUE ESSE DIA IRÁ CHEGAR!");
+            }, 6000);
+        }
+
+        spinBtn.addEventListener('click', spinWheel);
+        drawWheel();
+    </script>
+</body>
+</html>
