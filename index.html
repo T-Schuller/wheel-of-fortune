@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Spinner</title>
+    <title>PaRaBeNs LEONOR</title>
     <style>
         body { 
             background: radial-gradient(circle, #1a1a1a, #000); 
@@ -13,13 +13,7 @@
             height: 100vh; margin: 0; overflow: hidden;
         }
 
-        .title-paragraph {
-            text-align: center;
-            font-size: 2rem;
-            color: #f1c40f;
-            margin-bottom: 30px;
-            line-height: 1.4;
-            text-transform: uppercase;
+        .title-paragraph {color: #f1c40f; text-shadow: 0 0 10px #f39c12, 0 0 20px #e67e22; font-size: 3rem; margin-bottom: 5px; text-transform: uppercase;
         }
 
         .game-area {
@@ -77,8 +71,8 @@
 <body>
 
     <p class="title-paragraph">
-        SPIN THE WHEEL<br>
-        WIN A PRIZE
+        parabéns Leonor! agora....<br>
+        qual prenda receberás?
     </p>
 
     <div class="game-area">
@@ -92,7 +86,7 @@
         <img src="gojo.png" alt="Mascot Right" class="mascot" id="rightMascot">
     </div>
 
-    <button id="spinBtn">CLICK TO SPIN</button>
+    <button id="spinBtn">Desejamos-te sorte!</button>
 
     <script>
         const canvas = document.getElementById('wheel');
@@ -152,7 +146,7 @@
                 spinBtn.disabled = false;
                 // Stop mascot "hype" animation
                 mascots.forEach(m => m.classList.remove('spinning'));
-                alert("You landed on 1!");
+                alert("QUASE GANHAVAS O PRÉMIO MÁXIMO! NÃO TE PREOCUPES QUE ESSE DIA IRÁ CHEGAR!");
             }, 6000);
         }
 
