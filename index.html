@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Archive | Precision Engineering</title>
+    <title>Tomás Schuller | 3D Portfolio</title>
     
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
 
@@ -13,7 +13,7 @@
             --card-bg: #fbfbfd;
             --text-main: #1d1d1f;
             --text-sub: #86868b;
-            --accent: #a10000; /* choose accent color */
+            --accent: #f18a02; /* choose accent color */
             --border: #d2d2d7;
         }
 
@@ -170,64 +170,64 @@
 
     <header>
         <span class="eyebrow">Visual Archive / v1.0</span>
-        <h1>Engineering Portfolio</h1>
-        <p class="subtitle">A collection of precision-modeled assets. Explore material properties and structural integrity via the interactive viewer.</p>
+        <h1>Tomás Schuller</h1>
+        <p class="subtitle">A collection of vehicle models used for CFD simulations. Created during my tenure at ADESS AG.</p>
     </header>
 
     <div class="portfolio-grid">
         
         <div class="model-card">
-            <span class="model-meta">ID_001 // AERODYNAMICS</span>
+            <span class="model-meta">ID_001 // F527</span>
             <model-viewer id="m1" src="assets/f527_small.glb" camera-controls auto-rotate shadow-intensity="0" environment-image="neutral" exposure="1">
                 <div class="progress-bar" slot="progress-bar"><div class="update-bar"></div></div>
                 <div class="controls">
                     <button onclick="applyMat('m1', '#d1d1d1', 1, 0.2)" style="background: #d1d1d1;" title="Aluminium"></button>
-                    <button onclick="applyMat('m1', '#00a19c', 0.6, 0.3)" style="background: #00a19c;" title="Petronas"></button>
+                    <button onclick="applyMat('m1', '#f18a02', 0.6, 0.3)" style="background: #f18a02;" title="Petronas"></button>
                     <button onclick="applyMat('m1', '#1a1a1a', 0.2, 0.8)" style="background: #1a1a1a;" title="Matte"></button>
                 </div>
             </model-viewer>
             <div class="model-info">
-                <h2>Front Wing Assembly</h2>
-                <p>Refined surfacing for high-velocity stability and optimized downforce distribution.</p>
+                <h2>F527</h2>
+                <p>Junior single-seater based on F4 regulations.</p>
             </div>
         </div>
 
         <div class="model-card">
-            <span class="model-meta">ID_002 // STRUCTURE</span>
-            <model-viewer id="m2" src="assets/mh24_small.glb" camera-controls auto-rotate shadow-intensity="0" environment-image="neutral" exposure="1">
+            <span class="model-meta">ID_002 // MH24</span>
+            <model-viewer id="m2" src="assets/mh24_small.glb" camera-controls auto-rotate shadow-intensity="0.5" environment-image="neutral" exposure="1">
                 <div class="progress-bar" slot="progress-bar"><div class="update-bar"></div></div>
                 <div class="controls">
                     <button onclick="applyMat('m2', '#d1d1d1', 1, 0.2)" style="background: #d1d1d1;"></button>
-                    <button onclick="applyMat('m2', '#00a19c', 0.6, 0.3)" style="background: #00a19c;"></button>
+                    <button onclick="applyMat('m2', '#f18a02', 0.6, 0.3)" style="background: #f18a02;"></button>
                     <button onclick="applyMat('m2', '#1a1a1a', 0.2, 0.8)" style="background: #1a1a1a;"></button>
                 </div>
             </model-viewer>
             <div class="model-info">
-                <h2>Chassis Interface</h2>
-                <p>Minimalist structural design focusing on the core principles of functional utility.</p>
+                <h2>Mission H24</h2>
+                <p>Hydrogen powered LeMans Hypercar.</p>
             </div>
         </div>
 
         <div class="model-card">
-            <span class="model-meta">ID_003 // KINETICS</span>
+            <span class="model-meta">ID_003 // AD25</span>
             <model-viewer id="m3" src="assets/ad25_small.glb" camera-controls auto-rotate shadow-intensity="0" environment-image="neutral" exposure="1">
                 <div class="progress-bar" slot="progress-bar"><div class="update-bar"></div></div>
                 <div class="controls">
                     <button onclick="applyMat('m3', '#d1d1d1', 1, 0.2)" style="background: #d1d1d1;"></button>
-                    <button onclick="applyMat('m3', '#00a19c', 0.6, 0.3)" style="background: #00a19c;"></button>
+                    <button onclick="applyMat('m3', '#f18a02', 0.6, 0.3)" style="background: #f18a02;"></button>
                     <button onclick="applyMat('m3', '#1a1a1a', 0.2, 0.8)" style="background: #1a1a1a;"></button>
                 </div>
             </model-viewer>
             <div class="model-info">
-                <h2>Mechanical Hub</h2>
-                <p>Exploration of rotational symmetry and high-tolerance mechanical fits.</p>
+                <h2>AD25</h2>
+                <p>Le Mans Prototype Class 3 endurance car.</p>
             </div>
         </div>
 
     </div>
 
     <footer>
-        &copy; 2026 / Precision and Utility / Encrypted Session
+        &copy; 2026 / Tomás Schuller / Portfolio
     </footer>
 
     <script>
